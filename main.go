@@ -69,21 +69,41 @@ func romanToInt(s string) int {
 	for index, value := range s {
 		current := numerals[string(value)]
 		next := 0
-		if index < len(s)- 1 {
+		if index < len(s)-1 {
 			next = numerals[string(s[index+1])]
 		}
 
 		if current < next {
-			result -= current;
-			continue;
+			result -= current
+			continue
 		}
 
-		result += current;
+		result += current
 	}
 
-	return result;
+	return result
+}
+
+func twoSum(nums []int, target int) []int {
+	result := []int{0, 0}
+
+	for index, value := range nums {
+		next := 0
+		if index < len(nums)-1 {
+			next = nums[index+1]
+		}
+
+		if value+next == target {
+			result[0] = index
+			result[1] = index + 1
+			break
+		}
+
+	}
+	fmt.Println(result)
+	return result
 }
 
 func main() {
-	romanToInt("LVIII")//58
+	twoSum([]int{3,3}, 6)
 }
