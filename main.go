@@ -88,17 +88,11 @@ func twoSum(nums []int, target int) []int {
 	result := []int{0, 0}
 
 	for index, value := range nums {
-		next := 0
-		if index < len(nums)-1 {
-			next = nums[index+1]
+		for i:= index + 1; i < len(nums); i++{
+			if (nums[i] + value == target){
+				result[0], result[1] = index , i
+			}
 		}
-
-		if value+next == target {
-			result[0] = index
-			result[1] = index + 1
-			break
-		}
-
 	}
 	fmt.Println(result)
 	return result
