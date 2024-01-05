@@ -88,16 +88,45 @@ func twoSum(nums []int, target int) []int {
 	result := []int{0, 0}
 
 	for index, value := range nums {
-		for i:= index + 1; i < len(nums); i++{
-			if (nums[i] + value == target){
-				result[0], result[1] = index , i
+		for i := index + 1; i < len(nums); i++ {
+			if nums[i]+value == target {
+				result[0], result[1] = index, i
 			}
 		}
 	}
-	fmt.Println(result)
+
+	return result
+}
+
+func removeDuplicates(nums []int) int {
+	items := make(map[int]int)
+	for i := 0; i < len(nums); {
+		_, ok := items[nums[i]]
+		if !ok {
+			items[nums[i]] = nums[i]
+			i++
+		} else {
+			nums = append(nums[:i], nums[i+1:]...)
+		}
+	}
+	return len(items)
+}
+
+func removeElement(nums []int, val int) int {
+	result := 0
+	for i := 0; i < len(nums); {
+		if nums[i] == val {
+			nums = append(nums[:i], nums[i+1:]...)
+		} else {
+			i++
+			result++
+		}
+	}
 	return result
 }
 
 func main() {
-	twoSum([]int{3,3}, 6)
+	// twoSum([]int{2,7,11,15}, 9)
+	removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
+	// removeElement([]int{0,1,2,2,3,0,4,2}, 2)
 }
