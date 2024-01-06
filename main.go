@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type bill struct {
@@ -125,8 +126,28 @@ func removeElement(nums []int, val int) int {
 	return result
 }
 
+func strStr(haystack string, needle string) int {
+	if !strings.Contains(haystack, needle) {
+		return -1
+	}
+	for index, _ := range haystack {
+		end := index + len(needle)
+		if end > len(haystack) {
+		   end = len(haystack)
+		}
+		subStr := strings.TrimSpace(haystack[index:end])
+		if subStr  == needle {
+			fmt.Println(index)
+			return index
+		}
+		
+	}
+	return -1
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
-	removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
+	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
 	// removeElement([]int{0,1,2,2,3,0,4,2}, 2)
+	strStr("sadbutsad", "sad")
 }
