@@ -133,21 +133,41 @@ func strStr(haystack string, needle string) int {
 	for index, _ := range haystack {
 		end := index + len(needle)
 		if end > len(haystack) {
-		   end = len(haystack)
+			end = len(haystack)
 		}
 		subStr := strings.TrimSpace(haystack[index:end])
-		if subStr  == needle {
-			fmt.Println(index)
+		if subStr == needle {
 			return index
 		}
-		
+
 	}
 	return -1
 }
+
+func searchInsert(nums []int, target int) int {
+	output := 0
+	for index, value := range nums {
+		if value == target {
+			output = index
+			break
+		} else if value < target {
+			output = index + 1
+		}
+	}
+	return output
+}
+
+func lengthOfLastWord(s string) int {
+	words := strings.Fields(s)
+	return len(words[len(words) -1])
+}
+
 
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
 	// removeElement([]int{0,1,2,2,3,0,4,2}, 2)
-	strStr("sadbutsad", "sad")
+	// strStr("sadbutsad", "sad")
+	// searchInsert([]int{1,3,5,6}, 7)
+	lengthOfLastWord("   fly me   to   the moon  ")
 }
