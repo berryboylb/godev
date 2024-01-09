@@ -159,9 +159,19 @@ func searchInsert(nums []int, target int) int {
 
 func lengthOfLastWord(s string) int {
 	words := strings.Fields(s)
-	return len(words[len(words) -1])
+	return len(words[len(words)-1])
 }
 
+func plusOne(digits []int) []int {
+	for i := len(digits) - 1; i >= 0; i-- {
+		if digits[i] < 9 {
+			digits[i]++
+			return digits
+		}
+		digits[i] = 0
+	}
+	return append([]int{1}, digits...)
+}
 
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
@@ -169,5 +179,6 @@ func main() {
 	// removeElement([]int{0,1,2,2,3,0,4,2}, 2)
 	// strStr("sadbutsad", "sad")
 	// searchInsert([]int{1,3,5,6}, 7)
-	lengthOfLastWord("   fly me   to   the moon  ")
+	// lengthOfLastWord("   fly me   to   the moon  ")
+	plusOne([]int{7, 2, 8, 5, 0, 9, 1, 2, 9, 5, 3, 6, 6, 7, 3, 2, 8, 4, 3, 7, 9, 5, 7, 7, 4, 7, 4, 9, 4, 7, 0, 1, 1, 1, 7, 4, 0, 0, 6})
 }
