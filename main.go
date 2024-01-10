@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -167,10 +168,22 @@ func plusOne(digits []int) []int {
 		if digits[i] < 9 {
 			digits[i]++
 			return digits
+		} else {
+			digits[i] = 0
 		}
-		digits[i] = 0
+
 	}
 	return append([]int{1}, digits...)
+}
+
+func isPalindrome(s string) bool {
+	str := regexp.MustCompile(`[^a-z0-9]`).ReplaceAllString(strings.ToLower(s), "")
+	for i, v := range str {
+		if string(v) != string(str[len(str)-i-1]) {
+			return false
+		}
+	}
+	return true
 }
 
 func main() {
@@ -180,5 +193,6 @@ func main() {
 	// strStr("sadbutsad", "sad")
 	// searchInsert([]int{1,3,5,6}, 7)
 	// lengthOfLastWord("   fly me   to   the moon  ")
-	plusOne([]int{7, 2, 8, 5, 0, 9, 1, 2, 9, 5, 3, 6, 6, 7, 3, 2, 8, 4, 3, 7, 9, 5, 7, 7, 4, 7, 4, 9, 4, 7, 0, 1, 1, 1, 7, 4, 0, 0, 6})
+	// plusOne([]int{7, 2, 8, 5, 0, 9, 1, 2, 9, 5, 3, 6, 6, 7, 3, 2, 8, 4, 3, 7, 9, 5, 7, 7, 4, 7, 4, 9, 4, 7, 0, 1, 1, 1, 7, 4, 0, 0, 6})
+	isPalindrome("0P")
 }
