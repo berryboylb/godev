@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"regexp"
 	"strconv"
 	"strings"
@@ -217,6 +218,32 @@ func maxProfit(prices []int) int {
 
 	return profit
 }
+func addSquare(n float64) float64 {
+	var result float64 = 0
+	for _, value := range strconv.FormatFloat(n, 'f', 6, 64) {
+		val, _ := strconv.ParseFloat(string(value), 64)
+		result += math.Pow(val, 2)
+	}
+	return result
+}
+
+func isHappy(n int) bool {
+	items := make(map[float64]float64)
+	result := float64(n)
+	for result != 1 {
+		items[result] = result
+		result = addSquare(result)
+		_, ok := items[result]
+		if ok {
+			break
+		}
+	}
+
+	fmt.Println(result == 1)
+
+	return result == 1
+
+}
 
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
@@ -228,5 +255,7 @@ func main() {
 	// plusOne([]int{7, 2, 8, 5, 0, 9, 1, 2, 9, 5, 3, 6, 6, 7, 3, 2, 8, 4, 3, 7, 9, 5, 7, 7, 4, 7, 4, 9, 4, 7, 0, 1, 1, 1, 7, 4, 0, 0, 6})
 	// isPalindrome("0P")
 	// singleNumber([]int{4,1,2,1,2})
-	maxProfit([]int{2, 4, 1})
+	// maxProfit([]int{2, 4, 1})
+	isHappy(2)
+	// addSquare(19)
 }
