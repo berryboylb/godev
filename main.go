@@ -245,6 +245,22 @@ func isHappy(n int) bool {
 
 }
 
+func containsDuplicate(nums []int) bool {
+	items := make(map[float64]float64)
+	for _, value := range nums {
+		_, ok := items[float64(value)]
+		if ok {
+			fmt.Println(true)
+			return true
+		} else {
+			items[float64(value)] = float64(value)
+		}
+
+	}
+	fmt.Println(false, items)
+	return false
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -256,6 +272,7 @@ func main() {
 	// isPalindrome("0P")
 	// singleNumber([]int{4,1,2,1,2})
 	// maxProfit([]int{2, 4, 1})
-	isHappy(2)
+	// isHappy(2)
 	// addSquare(19)
+	containsDuplicate([]int{1,1,1,3,3,4,3,2,4,2})
 }
