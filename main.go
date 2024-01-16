@@ -261,6 +261,18 @@ func containsDuplicate(nums []int) bool {
 	return false
 }
 
+func containsNearbyDuplicate(nums []int, k int) bool {
+	items := make(map[int]int)
+    for index, value := range nums{
+		_, ok := items[value]
+		if ok && index - items[value] <= k {
+			return true
+		}
+		items[value] = index
+	}
+	return false
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
