@@ -273,6 +273,10 @@ func containsNearbyDuplicate(nums []int, k int) bool {
 	return false
 }
 
+func isPowerOfTwo(n int) bool {
+	return math.Mod(math.Log2(float64(n)), 1) == 0
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -286,5 +290,6 @@ func main() {
 	// maxProfit([]int{2, 4, 1})
 	// isHappy(2)
 	// addSquare(19)
-	containsDuplicate([]int{1,1,1,3,3,4,3,2,4,2})
+	// containsDuplicate([]int{1,1,1,3,3,4,3,2,4,2})
+	isPowerOfTwo(6)
 }
