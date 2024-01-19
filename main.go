@@ -263,9 +263,9 @@ func containsDuplicate(nums []int) bool {
 
 func containsNearbyDuplicate(nums []int, k int) bool {
 	items := make(map[int]int)
-    for index, value := range nums{
+	for index, value := range nums {
 		_, ok := items[value]
-		if ok && index - items[value] <= k {
+		if ok && index-items[value] <= k {
 			return true
 		}
 		items[value] = index
@@ -275,6 +275,37 @@ func containsNearbyDuplicate(nums []int, k int) bool {
 
 func isPowerOfTwo(n int) bool {
 	return math.Mod(math.Log2(float64(n)), 1) == 0
+}
+
+func isAnagram(s string, t string) bool {
+	if len(s) != len(t) {
+		fmt.Println(false)
+		return false
+	}
+
+	for _, value := range t {
+		if !strings.Contains(s, string(value)) {
+			return false
+		}
+		s = strings.Replace(s, string(value), "", 1)
+	}
+	fmt.Println(len(s) == 0)
+	return len(s) == 0
+}
+
+func addDigits(num int) int {
+	numStr := strconv.Itoa(num)
+	for len(numStr) > 1 {
+		tempNumber := 0
+		for _, r := range numStr {
+			digit, _ := strconv.Atoi(string(r))
+			tempNumber += digit
+		}
+		num = tempNumber
+		numStr = strconv.Itoa(num)
+	}
+	fmt.Println(num)
+	return num
 }
 
 func main() {
@@ -291,5 +322,6 @@ func main() {
 	// isHappy(2)
 	// addSquare(19)
 	// containsDuplicate([]int{1,1,1,3,3,4,3,2,4,2})
-	isPowerOfTwo(6)
+	// isAnagram("anagram", "nagaram")
+	addDigits(38)
 }
