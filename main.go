@@ -308,6 +308,20 @@ func addDigits(num int) int {
 	return num
 }
 
+func missingNumber(nums []int) int {
+	n := len(nums)
+    temp := make([]bool, n+1)
+    for _, num := range nums {
+        temp[num] = true
+    }
+    for i := 0; i <= n; i++ {
+        if !temp[i] {
+            return i
+        }
+    }
+    return 0
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -323,5 +337,6 @@ func main() {
 	// addSquare(19)
 	// containsDuplicate([]int{1,1,1,3,3,4,3,2,4,2})
 	// isAnagram("anagram", "nagaram")
-	addDigits(38)
+	// addDigits(38)
+	missingNumber([]int{0, 1})
 }
