@@ -360,6 +360,26 @@ func findErrorNums(nums []int) []int {
 	return []int{replica, missingNumber}
 }
 
+func reverse(x int) int {
+	rvr := ""
+	str := strconv.Itoa(x)
+	i := 0
+	sign := ""
+	if string(str[0]) == "-" {
+		i = 1
+		sign = "-"
+	}
+	for i < len(str) {
+		rvr = string(str[i]) + rvr
+		i++
+	}
+	num, _ := strconv.Atoi(sign + rvr)
+	if math.Abs(float64(num)) > math.MaxInt32 {
+		return 0
+	}
+	return num
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -378,5 +398,6 @@ func main() {
 	// addDigits(38)
 	// missingNumber([]int{0, 1})
 	// moveZeroes([]int{0, 1, 0, 3, 12})
-	findErrorNums([]int{3,3,1})
+	// findErrorNums([]int{3,3,1})
+	reverse(-123)
 }
