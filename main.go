@@ -310,16 +310,54 @@ func addDigits(num int) int {
 
 func missingNumber(nums []int) int {
 	n := len(nums)
-    temp := make([]bool, n+1)
-    for _, num := range nums {
-        temp[num] = true
-    }
-    for i := 0; i <= n; i++ {
-        if !temp[i] {
-            return i
-        }
-    }
-    return 0
+	temp := make([]bool, n+1)
+	for _, num := range nums {
+		temp[num] = true
+	}
+	for i := 0; i <= n; i++ {
+		if !temp[i] {
+			return i
+		}
+	}
+	return 0
+}
+func moveZeroes(nums []int) []int {
+	i := 0
+	for j := i + 1; j < len(nums); j++ {
+		if nums[i] != 0 {
+			i++
+			continue
+		} else {
+			if nums[j] != 0 {
+				nums[i], nums[j] = nums[j], nums[i]
+				i++
+			}
+			continue
+		}
+	}
+	fmt.Println(nums)
+	return nums
+}
+
+func findErrorNums(nums []int) []int {
+	items := make(map[int]int)
+	replica := 0
+	missingNumber := 0
+
+	for _, val := range nums {
+		if _, ok := items[val]; ok {
+			replica = val
+		}
+		items[val] = val
+	}
+
+	for i := 1; i <= len(nums); i++ {
+		if _, ok := items[i]; !ok {
+			missingNumber = i
+			break
+		}
+	}
+	return []int{replica, missingNumber}
 }
 
 func main() {
@@ -338,5 +376,7 @@ func main() {
 	// containsDuplicate([]int{1,1,1,3,3,4,3,2,4,2})
 	// isAnagram("anagram", "nagaram")
 	// addDigits(38)
-	missingNumber([]int{0, 1})
+	// missingNumber([]int{0, 1})
+	// moveZeroes([]int{0, 1, 0, 3, 12})
+	findErrorNums([]int{3,3,1})
 }
