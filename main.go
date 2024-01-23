@@ -379,6 +379,19 @@ func reverse(x int) int {
 	}
 	return num
 }
+func findDisappearedNumbers(nums []int) []int {
+    numSet := make(map[int]bool)
+    for _, num := range nums {
+        numSet[num] = true
+    }
+    var res []int
+    for i := 1; i <= len(nums); i++ {
+        if !numSet[i] {
+            res = append(res, i)
+        }
+    }
+    return res
+}
 
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
