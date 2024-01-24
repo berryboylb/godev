@@ -393,6 +393,20 @@ func findDisappearedNumbers(nums []int) []int {
     return res
 }
 
+func findComplement(num int) int {
+    binaryString := fmt.Sprintf("%b", num)
+	compliment := ""
+	for _, value := range binaryString {
+		if value == '1' {
+			compliment += "0"
+		} else {
+			compliment += "1"
+		}
+	}
+	res, _ := strconv.ParseInt(compliment, 2, 64)
+	return int(res)
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -412,5 +426,6 @@ func main() {
 	// missingNumber([]int{0, 1})
 	// moveZeroes([]int{0, 1, 0, 3, 12})
 	// findErrorNums([]int{3,3,1})
-	reverse(-123)
+	// reverse(-123)
+	findComplement(5)
 }
