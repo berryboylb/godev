@@ -380,21 +380,21 @@ func reverse(x int) int {
 	return num
 }
 func findDisappearedNumbers(nums []int) []int {
-    numSet := make(map[int]bool)
-    for _, num := range nums {
-        numSet[num] = true
-    }
-    var res []int
-    for i := 1; i <= len(nums); i++ {
-        if !numSet[i] {
-            res = append(res, i)
-        }
-    }
-    return res
+	numSet := make(map[int]bool)
+	for _, num := range nums {
+		numSet[num] = true
+	}
+	var res []int
+	for i := 1; i <= len(nums); i++ {
+		if !numSet[i] {
+			res = append(res, i)
+		}
+	}
+	return res
 }
 
 func findComplement(num int) int {
-    binaryString := fmt.Sprintf("%b", num)
+	binaryString := fmt.Sprintf("%b", num)
 	compliment := ""
 	for _, value := range binaryString {
 		if value == '1' {
