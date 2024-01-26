@@ -407,6 +407,54 @@ func findComplement(num int) int {
 	return int(res)
 }
 
+func arrangeCoins(n int) int {
+	res := 0
+	if n == 1 {
+		return 1
+	}
+	counter := n
+	for i := 1; i <= n; i++ {
+		if counter < i {
+			res = i - 1
+			break
+		}
+		counter -= i
+	}
+	return res
+} //0ms
+
+func arrangeCoinsRecur(n int) int {
+	return arrange(n, 1)
+}
+
+func arrange(n int, k int) int {
+	if n < k {
+		return k - 1
+	}
+	return arrange(n-k, k+1)
+} //21ms
+func padStart(s string, targetLength int, padStr string) string {
+	for len(s) < targetLength {
+		s = padStr + s
+	}
+	return s
+}
+func hammingDistance(x int, y int) int {
+	bitX := padStart(fmt.Sprintf("%b", x), 32, "0")
+	bitY := padStart(fmt.Sprintf("%b", y), 32, "0")
+	distance := 0
+
+	for index, _ := range bitX {
+		if bitX[index] != bitY[index]{
+			distance += 1
+		}
+	}
+
+	fmt.Println(distance)
+
+	return distance
+}//oms
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -427,5 +475,7 @@ func main() {
 	// moveZeroes([]int{0, 1, 0, 3, 12})
 	// findErrorNums([]int{3,3,1})
 	// reverse(-123)
-	findComplement(5)
+	// findComplement(5)
+	// arrangeCoins(8)
+	hammingDistance(1,4)
 }
