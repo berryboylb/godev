@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -445,7 +446,7 @@ func hammingDistance(x int, y int) int {
 	distance := 0
 
 	for index, _ := range bitX {
-		if bitX[index] != bitY[index]{
+		if bitX[index] != bitY[index] {
 			distance += 1
 		}
 	}
@@ -453,7 +454,48 @@ func hammingDistance(x int, y int) int {
 	fmt.Println(distance)
 
 	return distance
-}//oms
+} //oms
+
+func thirdMax(nums []int) int {
+	sort.Ints(nums)
+	for len(nums) > 3 {
+		nums = append(nums[:len(nums)-1], nums[len(nums)-2:]...)
+	}
+	if len(nums) == 3 {
+		return nums[2]
+	}
+	return nums[len(nums)-1]
+}
+
+func AddStrings(num1 string, num2 string) string {
+	max := 0
+	if len(num1) > len(num2) {
+		max = len(num1)
+	} else {
+		max = len(num2)
+	}
+	num1 = padStart(num1, max, "0")
+	num2 = padStart(num2, max, "0")
+	res := ""
+	carry := 0
+	for i := max - 1; i >= 0; i-- {
+		init, _ := strconv.Atoi(string(num1[i]))
+		sec, _ := strconv.Atoi(string(num2[i]))
+		sum := init + sec + carry
+		if sum >= 10 {
+			carry = 1
+			sum -= 10
+		} else {
+			carry = 0
+		}
+		result := strconv.Itoa(sum)
+		res = result + res
+	}
+	if carry > 0 {
+		return "1" + res
+	}
+	return res
+}
 
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
@@ -477,5 +519,5 @@ func main() {
 	// reverse(-123)
 	// findComplement(5)
 	// arrangeCoins(8)
-	hammingDistance(1,4)
+	hammingDistance(1, 4)
 }
