@@ -497,6 +497,90 @@ func AddStrings(num1 string, num2 string) string {
 	return res
 }
 
+func countSegments(s string) int {
+	counter := 0
+	if string(s[0]) == " " {
+		counter = 1
+	}
+	for i, value := range s {
+		if string(value) == " " && string(s[i+1]) != " " && i+1 < len(s) {
+			counter++
+		}
+	}
+	if len(s) > 0 {
+		return counter
+	}
+	return 0
+
+	// return len(strings.Fields(s))
+}
+
+func islandPerimeter(grid [][]int) int {
+	land := 1
+	perimeter := 0
+	for i, val := range grid {
+		for j, jval := range val {
+			if jval == land {
+				perimeter += 4
+
+				if i > 0 && grid[i-1][j] == land {
+					perimeter -= 1
+				}
+
+				if j > 0 && grid[i][j-1] == land {
+					perimeter -= 1
+				}
+
+				if i < len(grid)-1 && grid[i+1][j] == land {
+					perimeter -= 1
+				}
+				if j < len(val)-1 && grid[i][j+1] == land {
+					perimeter -= 1
+				}
+
+			}
+		}
+	}
+
+	fmt.Println(perimeter)
+	return perimeter
+}
+
+func findContentChildren(g []int, s []int) int {
+	sort.Ints(g)
+	sort.Ints(s)
+
+	mostContent := 0
+	j := 0
+
+	for i := range g {
+		for j < len(s) && s[j] < g[i] {
+			j++
+		}
+		if j < len(s) {
+			mostContent++
+			j++
+		}
+	}
+	return mostContent
+}
+
+func findMaxConsecutiveOnes(nums []int) int {
+    maxNum := 0
+	temp := 0
+	for _, value := range nums{
+		if value == 1 {
+			temp++
+		}else {
+			temp =0
+		}
+		if temp > maxNum{
+			maxNum = temp
+		}
+	}
+	return maxNum
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -519,5 +603,13 @@ func main() {
 	// reverse(-123)
 	// findComplement(5)
 	// arrangeCoins(8)
-	hammingDistance(1, 4)
+	// hammingDistance(1, 4)
+	islandPerimeter([][]int{
+		{0, 1, 0, 0},
+		{1, 1, 1, 0},
+		{0, 1, 0, 0},
+		{1, 1, 0, 0},
+	})
+	findContentChildren([]int{1,2,3}, []int{1,1})
+
 }
