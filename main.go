@@ -566,19 +566,35 @@ func findContentChildren(g []int, s []int) int {
 }
 
 func findMaxConsecutiveOnes(nums []int) int {
-    maxNum := 0
+	maxNum := 0
 	temp := 0
-	for _, value := range nums{
+	for _, value := range nums {
 		if value == 1 {
 			temp++
-		}else {
-			temp =0
+		} else {
+			temp = 0
 		}
-		if temp > maxNum{
+		if temp > maxNum {
 			maxNum = temp
 		}
 	}
 	return maxNum
+}
+
+func licenseKeyFormatting(s string, k int) string {
+	s = strings.ReplaceAll(strings.ToUpper(s), "-", "")
+	res := ""
+	count := 0
+	for i := len(s) - 1; i >= 0; i-- {
+		res = string(s[i]) + res
+		count++
+		if count == k && i != 0 {
+			res = "-" + res
+			count = 0
+		}
+	}
+
+	return res
 }
 
 func main() {
@@ -604,12 +620,13 @@ func main() {
 	// findComplement(5)
 	// arrangeCoins(8)
 	// hammingDistance(1, 4)
-	islandPerimeter([][]int{
-		{0, 1, 0, 0},
-		{1, 1, 1, 0},
-		{0, 1, 0, 0},
-		{1, 1, 0, 0},
-	})
-	findContentChildren([]int{1,2,3}, []int{1,1})
+	// islandPerimeter([][]int{
+	// 	{0, 1, 0, 0},
+	// 	{1, 1, 1, 0},
+	// 	{0, 1, 0, 0},
+	// 	{1, 1, 0, 0},
+	// })
+	// findContentChildren([]int{1,2,3}, []int{1,1})
+	licenseKeyFormatting("---", 3)
 
 }
