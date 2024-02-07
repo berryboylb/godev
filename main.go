@@ -597,6 +597,16 @@ func licenseKeyFormatting(s string, k int) string {
 	return res
 }
 
+func convertToBase7(num int) string {
+	negative := num < 0
+	val := int64(math.Abs(float64(num)))
+	base7 := strconv.FormatInt(val, 7)
+	if(negative){
+		return "-" + base7
+	}
+	return base7
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
