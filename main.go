@@ -601,10 +601,30 @@ func convertToBase7(num int) string {
 	negative := num < 0
 	val := int64(math.Abs(float64(num)))
 	base7 := strconv.FormatInt(val, 7)
-	if(negative){
+	if negative {
 		return "-" + base7
 	}
 	return base7
+}
+
+func reverseWords(s string) string {
+	res := ""
+	for i := len(s) - 1; i >= 0; i-- {
+		if string(s[i]) != " " {
+			res = string(s[i]) + res
+		} else {
+			res = " "  + res
+		}
+	}
+
+	fmt.Printf("res: %v\n", res)
+	return res
+}
+
+func reversebyte(s []byte) {
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		s[i], s[j] = s[j], s[i]
+	}
 }
 
 func main() {
@@ -637,6 +657,7 @@ func main() {
 	// 	{1, 1, 0, 0},
 	// })
 	// findContentChildren([]int{1,2,3}, []int{1,1})
-	licenseKeyFormatting("---", 3)
+	// licenseKeyFormatting("---", 3)
+	reverseWords("Let's take LeetCode contest")
 
 }
