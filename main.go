@@ -613,7 +613,7 @@ func reverseWords(s string) string {
 		if string(s[i]) != " " {
 			res = string(s[i]) + res
 		} else {
-			res = " "  + res
+			res = " " + res
 		}
 	}
 
@@ -625,6 +625,17 @@ func reversebyte(s []byte) {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		s[i], s[j] = s[j], s[i]
 	}
+}
+
+func climbStairs(n int) int {
+	ways := map[int]int{
+		0: 1,
+		1: 1,
+	}
+	for i := 2; i <= n; i++ {
+		ways[i] = ways[i-1] + ways[i-2]
+	}
+	return ways[n];
 }
 
 func main() {
@@ -658,6 +669,7 @@ func main() {
 	// })
 	// findContentChildren([]int{1,2,3}, []int{1,1})
 	// licenseKeyFormatting("---", 3)
-	reverseWords("Let's take LeetCode contest")
+	// reverseWords("Let's take LeetCode contest")
+	climbStairs(5)
 
 }
