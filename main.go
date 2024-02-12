@@ -635,7 +635,20 @@ func climbStairs(n int) int {
 	for i := 2; i <= n; i++ {
 		ways[i] = ways[i-1] + ways[i-2]
 	}
-	return ways[n];
+	return ways[n]
+}
+
+func rotateString(s string, goal string) bool {
+	for i := 0; i < len(goal);{
+		s = s[len(s)-1:] + s[:len(s)-1]
+		if s == goal {
+			fmt.Println(true)
+			return true
+		}
+		i++;
+	}
+	fmt.Println(false)
+	return false
 }
 
 func main() {
@@ -670,6 +683,7 @@ func main() {
 	// findContentChildren([]int{1,2,3}, []int{1,1})
 	// licenseKeyFormatting("---", 3)
 	// reverseWords("Let's take LeetCode contest")
-	climbStairs(5)
+	// climbStairs(5)
+	rotateString("abcde", "cdeab")
 
 }
