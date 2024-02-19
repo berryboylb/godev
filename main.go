@@ -639,16 +639,61 @@ func climbStairs(n int) int {
 }
 
 func rotateString(s string, goal string) bool {
-	for i := 0; i < len(goal);{
+	for i := 0; i < len(goal); i++ {
 		s = s[len(s)-1:] + s[:len(s)-1]
 		if s == goal {
-			fmt.Println(true)
 			return true
 		}
-		i++;
+
 	}
-	fmt.Println(false)
 	return false
+}
+
+func stringToInt(s string) int {
+	s = strings.TrimLeft(s, " ")
+
+	negative := false
+	if len(s) >  0 && s[0] == '-' {
+		negative = true
+		s = s[1:]
+	} else if len(s) >  0 && s[0] == '+' {
+		s = s[1:]
+	}
+
+	var digits string
+	for _, r := range s {
+		if r >= '0' && r <= '9' {
+			digits += string(r)
+		} else {
+			break
+		}
+	}
+
+	if digits == "" {
+		return  0
+	}
+
+	val, err := strconv.ParseInt(digits,  10,  32)
+	if err != nil {
+		if negative {
+			return -2147483648
+		} else {
+			return  2147483647
+		}
+	}
+	
+	if negative {
+		val = -val
+	}
+
+	if val < -2147483648 {
+		return -2147483648
+	} else if val >  2147483647 {
+		return  2147483647
+	}
+
+	return int(val)
+
 }
 
 func main() {
@@ -684,6 +729,7 @@ func main() {
 	// licenseKeyFormatting("---", 3)
 	// reverseWords("Let's take LeetCode contest")
 	// climbStairs(5)
-	rotateString("abcde", "cdeab")
+	// rotateString("abcde", "cdeab")
+	stringToInt("01234-5678")
 
 }
