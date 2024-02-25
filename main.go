@@ -362,19 +362,21 @@ func findErrorNums(nums []int) []int {
 }
 
 func reverse(x int) int {
-	rvr := ""
 	str := strconv.Itoa(x)
-	i := 0
-	sign := ""
-	if string(str[0]) == "-" {
-		i = 1
-		sign = "-"
+	sign := x < 0
+	if sign {
+		str = str[1:]
 	}
-	for i < len(str) {
-		rvr = string(str[i]) + rvr
-		i++
+	rvr := ""
+	for _, val := range str {
+		rvr = string(val) + rvr
 	}
-	num, _ := strconv.Atoi(sign + rvr)
+
+	num, _ := strconv.Atoi(rvr)
+	if sign {
+		num = -num
+	}
+
 	if math.Abs(float64(num)) > math.MaxInt32 {
 		return 0
 	}
@@ -653,10 +655,10 @@ func stringToInt(s string) int {
 	s = strings.TrimLeft(s, " ")
 
 	negative := false
-	if len(s) >  0 && s[0] == '-' {
+	if len(s) > 0 && s[0] == '-' {
 		negative = true
 		s = s[1:]
-	} else if len(s) >  0 && s[0] == '+' {
+	} else if len(s) > 0 && s[0] == '+' {
 		s = s[1:]
 	}
 
@@ -670,30 +672,95 @@ func stringToInt(s string) int {
 	}
 
 	if digits == "" {
-		return  0
+		return 0
 	}
 
-	val, err := strconv.ParseInt(digits,  10,  32)
+	val, err := strconv.ParseInt(digits, 10, 32)
 	if err != nil {
 		if negative {
-			return -2147483648
+			return math.MinInt32
 		} else {
-			return  2147483647
+			return math.MaxInt32
 		}
 	}
-	
+
 	if negative {
 		val = -val
 	}
 
-	if val < -2147483648 {
-		return -2147483648
-	} else if val >  2147483647 {
-		return  2147483647
+	if val < math.MinInt32 {
+		return math.MinInt32
+	} else if val > math.MaxInt32 {
+		return math.MaxInt32
 	}
 
 	return int(val)
 
+}
+
+func imageSmoother(img [][]int) [][]int {
+	width, height := len(img), len(img[0])
+	result := make([][]int, width)
+	for i := 0; i < width; i++ {
+		result[i] = make([]int, height)
+	}
+	for i := 0; i < width; i++ { //loops through the matrix
+		for j := 0; j < height; j++ { //loops through the current row of the matrix
+			count, sum := 0, 0
+			for k := i - 1; k <= i+1; k++ { //checks top and bottom of neighbouring cell
+				for m := j - 1; m <= j+1; m++ { //checks left and right of neighbouring cell
+					if k < 0 || k >= width || m < 0 || m >= height { ///boundaries so it doens't go out of range in the edges
+						continue
+					}
+					count++
+					sum += img[k][m]
+				}
+			}
+			result[i][j] = sum / count
+		}
+	}
+	// fmt.Println(width, height, result)
+	return result
+}
+
+func searchMatrix(matrix [][]int, target int) bool {
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[i]); j++ {
+			if matrix[i][j] == target {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func maximumProduct(nums []int) int {
+	for i, val := range nums {
+		nums[i] = int(math.Abs(float64(val)))
+	}
+	sort.Ints(nums)
+	max := nums[len(nums)-1] * nums[len(nums)-2] * nums[len(nums)-3]
+	return max
+}
+
+func majorityElement(nums []int) int {
+	max := 0
+	maxOccurrence := 0
+	items := make(map[int]int)
+
+	for _, v := range nums {
+		if _, ok := items[v]; ok {
+			items[v]++
+		} else {
+			items[v] = 1
+		}
+		if items[v] > maxOccurrence {
+			max = v
+			maxOccurrence = items[v]
+		}
+	}
+
+	return max
 }
 
 func main() {
@@ -730,6 +797,11 @@ func main() {
 	// reverseWords("Let's take LeetCode contest")
 	// climbStairs(5)
 	// rotateString("abcde", "cdeab")
-	stringToInt("01234-5678")
+	// stringToInt("01234-5678")
+	// imageSmoother([][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}})
+	// searchMatrix()
+	maximumProduct([]int{
+		1, 2, 3,
+	})
 
 }
