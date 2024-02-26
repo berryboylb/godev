@@ -763,6 +763,54 @@ func majorityElement(nums []int) int {
 	return max
 }
 
+func areIsomorphic(s string, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+
+	sToT := make(map[rune]rune)
+	tToS := make(map[rune]rune)
+
+	for i := 0; i < len(s); i++ {
+		charS, charT := rune(s[i]), rune(t[i])
+
+		if _, exists := sToT[charS]; !exists {
+			if _, exists := tToS[charT]; exists {
+				return false
+			}
+			sToT[charS] = charT
+			tToS[charT] = charS
+		} else if sToT[charS] != charT {
+			return false
+		}
+	}
+
+	return true
+}
+
+func areIsomorphicTest(s string, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+
+	check := make(map[string]string)
+	orgStr := s
+
+	for i := 0; i < len(s); i++ {
+		charS, charT := string(s[i]), string(t[i])
+		if _, exists := check[charT]; exists {
+			return true
+		}
+		s = strings.ReplaceAll(s, charS, charT)
+		if orgStr == s {
+			return true
+		}
+		check[charT] = charT
+	}
+
+	return false
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -800,8 +848,8 @@ func main() {
 	// stringToInt("01234-5678")
 	// imageSmoother([][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}})
 	// searchMatrix()
-	maximumProduct([]int{
-		1, 2, 3,
-	})
-
+	// maximumProduct([]int{
+	// 	1, 2, 3,
+	// })
+	areIsomorphicTest("paper", "title")
 }
