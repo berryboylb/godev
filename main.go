@@ -811,6 +811,26 @@ func areIsomorphicTest(s string, t string) bool {
 	return false
 }
 
+func constructRectangle(area int) []int {
+	max := math.MaxInt64
+	res := make([]int, 2)
+
+	for width := 1; width <= int(math.Sqrt(float64(area))); width++ {
+		if area%width == 0 {
+			length := area / width
+			diff := int(math.Abs(float64(length - width)))
+			if width <= length && diff < max {
+				max = diff
+				res[0] = length
+				res[1] = width
+			}
+		}
+	}
+
+	fmt.Println(res)
+	return res
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -851,5 +871,6 @@ func main() {
 	// maximumProduct([]int{
 	// 	1, 2, 3,
 	// })
-	areIsomorphicTest("paper", "title")
+	// areIsomorphicTest("paper", "title")
+	constructRectangle(4)
 }
