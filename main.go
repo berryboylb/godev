@@ -831,6 +831,20 @@ func constructRectangle(area int) []int {
 	return res
 }
 
+func convertToTitle(columnNumber int) string {
+	ans := ""
+	for columnNumber > 0 {
+		code := columnNumber % 26
+        if code == 0 {
+            code = 26
+        }
+		ans = string(code+64) + ans
+		columnNumber =  (columnNumber-code)/26
+	}
+	fmt.Print(ans)
+	return ans
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -872,5 +886,6 @@ func main() {
 	// 	1, 2, 3,
 	// })
 	// areIsomorphicTest("paper", "title")
-	constructRectangle(4)
+	// constructRectangle(4)
+	convertToTitle(701)
 }
