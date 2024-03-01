@@ -835,14 +835,30 @@ func convertToTitle(columnNumber int) string {
 	ans := ""
 	for columnNumber > 0 {
 		code := columnNumber % 26
-        if code == 0 {
-            code = 26
-        }
+		if code == 0 {
+			code = 26
+		}
 		ans = string(code+64) + ans
-		columnNumber =  (columnNumber-code)/26
+		columnNumber = (columnNumber - code) / 26
 	}
 	fmt.Print(ans)
 	return ans
+}
+
+func reverseWordsPrev(s string) string {
+    strArr := strings.Fields(s)
+	ans := ""
+    
+    for i := len(strArr) - 1; i >= 0; i-- {
+        ans += strArr[i]
+        if i > 0 {
+            ans += " "
+        }
+    }
+
+	fmt.Println(ans)
+    
+    return ans
 }
 
 func main() {
@@ -887,5 +903,6 @@ func main() {
 	// })
 	// areIsomorphicTest("paper", "title")
 	// constructRectangle(4)
-	convertToTitle(701)
+	// convertToTitle(701)
+	reverseWordsPrev("  hello world  ")
 }
