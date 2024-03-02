@@ -846,20 +846,70 @@ func convertToTitle(columnNumber int) string {
 }
 
 func reverseWordsPrev(s string) string {
-    strArr := strings.Fields(s)
+	strArr := strings.Fields(s)
 	ans := ""
-    
-    for i := len(strArr) - 1; i >= 0; i-- {
-        ans += strArr[i]
-        if i > 0 {
-            ans += " "
-        }
-    }
+
+	for i := len(strArr) - 1; i >= 0; i-- {
+		ans += strArr[i]
+		if i > 0 {
+			ans += " "
+		}
+	}
 
 	fmt.Println(ans)
-    
-    return ans
+
+	return ans
 }
+
+func maxProduct(nums []int) int {
+	if len(nums) == 1 {
+		return nums[0]
+	}
+
+	max := nums[0] * nums[1]
+
+	for i := 1; i < len(nums)-1; i++ {
+		product := nums[i] * nums[i+1]
+		if product > max {
+			max = product
+		}
+	}
+
+	fmt.Println(max)
+	return max
+}
+
+func isSelfDividing(num int) bool {
+	strNum := fmt.Sprintf("%d", num)
+
+	for _, c := range strNum {
+		digit := int(c - '0')
+
+		if digit == 0 {
+			return false
+		} else if num%digit == 0 {
+			continue
+		} else if digit == num {
+			return true
+		}
+		return false
+	}
+	return true
+}
+
+func selfDividingNumbers(left int, right int) []int {
+	ans := make([]int, 0)
+	for left <= right {
+		if isSelfDividing(left) {
+			ans = append(ans, left)
+		}
+		left++
+	}
+	fmt.Println(ans)
+	return ans
+}
+
+// Helper functions
 
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
@@ -904,5 +954,7 @@ func main() {
 	// areIsomorphicTest("paper", "title")
 	// constructRectangle(4)
 	// convertToTitle(701)
-	reverseWordsPrev("  hello world  ")
+	// reverseWordsPrev("  hello world  ")
+	// maxProduct([]int{-2, 0, -1})
+	selfDividingNumbers(1, 22)
 }
