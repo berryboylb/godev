@@ -219,6 +219,19 @@ func maxProfit(prices []int) int {
 
 	return profit
 }
+
+func maxProfit2(prices []int) int {
+	maxProfit := 0
+    
+    for i := 1; i < len(prices); i++ {
+        profit := prices[i] - prices[i-1]
+        if profit > 0 {
+            maxProfit += profit
+        }
+    }
+    
+    return maxProfit
+}
 func addSquare(n float64) float64 {
 	var result float64 = 0
 	for _, value := range strconv.FormatFloat(n, 'f', 6, 64) {
@@ -956,5 +969,6 @@ func main() {
 	// convertToTitle(701)
 	// reverseWordsPrev("  hello world  ")
 	// maxProduct([]int{-2, 0, -1})
-	selfDividingNumbers(1, 22)
+	// selfDividingNumbers(1, 22)
+	maxProfit2([]int{7,1,5,3,6,4})
 }
