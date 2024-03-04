@@ -222,15 +222,15 @@ func maxProfit(prices []int) int {
 
 func maxProfit2(prices []int) int {
 	maxProfit := 0
-    
-    for i := 1; i < len(prices); i++ {
-        profit := prices[i] - prices[i-1]
-        if profit > 0 {
-            maxProfit += profit
-        }
-    }
-    
-    return maxProfit
+
+	for i := 1; i < len(prices); i++ {
+		profit := prices[i] - prices[i-1]
+		if profit > 0 {
+			maxProfit += profit
+		}
+	}
+
+	return maxProfit
 }
 func addSquare(n float64) float64 {
 	var result float64 = 0
@@ -924,6 +924,40 @@ func selfDividingNumbers(left int, right int) []int {
 
 // Helper functions
 
+func countOccurrences(arr []string, target string) int {
+	count := 0
+	for _, s := range arr {
+		if s == target {
+			count++
+		}
+	}
+	return count
+}
+
+func mostCommonWord(paragraph string, banned []string) string {
+	ans := ""
+	count := 0
+	words := strings.FieldsFunc(strings.ToLower(paragraph), func(r rune) bool {
+		// Define what constitutes a word boundary, including punctuation
+		return !('a' <= r && r <= 'z' || 'A' <= r && r <= 'Z')
+	})
+	wordCount := make(map[string]int)
+
+	for _, word := range words {
+		if !strings.Contains(strings.Join(banned, ""), word) {
+			wordCount[word]++
+			if wordCount[word] > count {
+				count = wordCount[word]
+				ans = word
+			}
+		}
+	}
+
+	fmt.Println(ans)
+
+	return ans
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -970,5 +1004,6 @@ func main() {
 	// reverseWordsPrev("  hello world  ")
 	// maxProduct([]int{-2, 0, -1})
 	// selfDividingNumbers(1, 22)
-	maxProfit2([]int{7,1,5,3,6,4})
+	// maxProfit2([]int{7,1,5,3,6,4})
+	mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", []string{"hit"})
 }
