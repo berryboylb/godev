@@ -989,9 +989,6 @@ func intToRoman(num int) string {
 }
 
 func checkIfPangram(sentence string) bool {
-	if len(sentence) < 26 {
-		return false
-	}
 	letters := make(map[rune]bool)
 	for _, runed := range sentence {
 		if runed >= 'a' && runed <= 'z' {
