@@ -958,22 +958,21 @@ func mostCommonWord(paragraph string, banned []string) string {
 	return ans
 }
 
-
 func intToRoman(num int) string {
-    res := ""
+	res := ""
 	numerals := map[int]string{
-		1: "I",
-		4: "IV",
-		5: "V",
-		9: "IX",
-		10: "X",
-		40: "XL",
-		50: "L",
-		90: "XC",
-		100: "C",
-		400: "CD",
-		500: "D",
-		900: "CM",
+		1:    "I",
+		4:    "IV",
+		5:    "V",
+		9:    "IX",
+		10:   "X",
+		40:   "XL",
+		50:   "L",
+		90:   "XC",
+		100:  "C",
+		400:  "CD",
+		500:  "D",
+		900:  "CM",
 		1000: "M",
 	}
 	keys := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
@@ -987,6 +986,19 @@ func intToRoman(num int) string {
 	fmt.Println(res)
 
 	return res
+}
+
+func checkIfPangram(sentence string) bool {
+	if len(sentence) < 26 {
+		return false
+	}
+	letters := make(map[rune]bool)
+	for _, runed := range sentence {
+		if runed >= 'a' && runed <= 'z' {
+			letters[runed] = true
+		}
+	}
+	return len(letters) == 26
 }
 
 func main() {
