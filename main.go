@@ -998,6 +998,16 @@ func checkIfPangram(sentence string) bool {
 	return len(letters) == 26
 }
 
+func numJewelsInStones(jewels string, stones string) int {
+    count := 0
+	for _, r := range stones {
+		if strings.Contains(jewels, string(r)) {
+            count++
+        }
+	}
+	return count
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
