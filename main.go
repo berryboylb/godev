@@ -999,13 +999,34 @@ func checkIfPangram(sentence string) bool {
 }
 
 func numJewelsInStones(jewels string, stones string) int {
-    count := 0
+	count := 0
 	for _, r := range stones {
 		if strings.Contains(jewels, string(r)) {
-            count++
-        }
+			count++
+		}
 	}
 	return count
+}
+
+func minimumBoxes(apple []int, capacity []int) int {
+	totalApples := 0
+	for _, val := range apple {
+		totalApples += val
+	}
+	sort.Ints(capacity) 
+	fmt.Print(totalApples, capacity)
+	boxes := 0
+
+	for i := len(capacity) - 1; i >= 0; i-- {
+		if totalApples <= 0 {
+			break
+		}
+		totalApples -= capacity[i]
+		boxes++
+	}
+	fmt.Println(boxes)
+
+	return boxes
 }
 
 func main() {
@@ -1056,5 +1077,6 @@ func main() {
 	// selfDividingNumbers(1, 22)
 	// maxProfit2([]int{7,1,5,3,6,4})
 	// mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", []string{"hit"})
-	intToRoman(5)
+	// intToRoman(5)
+	minimumBoxes([]int{1, 2, 3}, []int{3, 4, 5})
 }
