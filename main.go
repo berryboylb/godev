@@ -1039,6 +1039,17 @@ func numIdenticalPairs(nums []int) int {
 	return pairs
 }
 
+func asteroidsDestroyed(mass int, asteroids []int) bool {
+    sort.Ints(asteroids)
+    for _, asteroid := range asteroids {
+        if asteroid > mass {
+            return false
+        }
+        mass += asteroid
+    }
+    return true
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
