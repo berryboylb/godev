@@ -1013,7 +1013,7 @@ func minimumBoxes(apple []int, capacity []int) int {
 	for _, val := range apple {
 		totalApples += val
 	}
-	sort.Ints(capacity) 
+	sort.Ints(capacity)
 	fmt.Print(totalApples, capacity)
 	boxes := 0
 
@@ -1027,6 +1027,19 @@ func minimumBoxes(apple []int, capacity []int) int {
 	fmt.Println(boxes)
 
 	return boxes
+}
+
+func numIdenticalPairs(nums []int) int {
+	pairs := 0
+	for i := 0; i < len(nums)-1; i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i] == nums[j] {
+				pairs++
+			}
+		}
+	}
+	fmt.Println(pairs)
+	return pairs
 }
 
 func main() {
@@ -1078,5 +1091,6 @@ func main() {
 	// maxProfit2([]int{7,1,5,3,6,4})
 	// mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", []string{"hit"})
 	// intToRoman(5)
-	minimumBoxes([]int{1, 2, 3}, []int{3, 4, 5})
+	// minimumBoxes([]int{1, 2, 3}, []int{3, 4, 5})
+	numIdenticalPairs([]int{1,1,1,1})
 }
