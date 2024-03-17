@@ -1031,14 +1031,11 @@ func minimumBoxes(apple []int, capacity []int) int {
 
 func numIdenticalPairs(nums []int) int {
 	pairs := 0
-	for i := 0; i < len(nums)-1; i++ {
-		for j := i + 1; j < len(nums); j++ {
-			if nums[i] == nums[j] {
-				pairs++
-			}
-		}
+	seen := make(map[int]int)
+	for _, val := range nums {
+		pairs += seen[val]
+		seen[val]++
 	}
-	fmt.Println(pairs)
 	return pairs
 }
 
@@ -1092,5 +1089,5 @@ func main() {
 	// mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", []string{"hit"})
 	// intToRoman(5)
 	// minimumBoxes([]int{1, 2, 3}, []int{3, 4, 5})
-	numIdenticalPairs([]int{1,1,1,1})
+	numIdenticalPairs([]int{1, 1, 1, 1})
 }
