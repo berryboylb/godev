@@ -1040,14 +1040,32 @@ func numIdenticalPairs(nums []int) int {
 }
 
 func asteroidsDestroyed(mass int, asteroids []int) bool {
-    sort.Ints(asteroids)
-    for _, asteroid := range asteroids {
-        if asteroid > mass {
-            return false
-        }
-        mass += asteroid
-    }
-    return true
+	sort.Ints(asteroids)
+	for _, asteroid := range asteroids {
+		if asteroid > mass {
+			return false
+		}
+		mass += asteroid
+	}
+	return true
+}
+
+func countKeyChanges(s string) int {
+	s = strings.ToLower(s)
+	var changes int
+	for currentIndex, _ := range s {
+		nextIndex := 0
+		if currentIndex < len(s)-1 {
+			nextIndex = currentIndex + 1
+		}
+		if currentIndex < len(s)-1 && s[currentIndex] != s[nextIndex] {
+			fmt.Println(s[currentIndex], s[nextIndex])
+			changes++
+		}
+	}
+	fmt.Println(changes)
+	return changes
+
 }
 
 func main() {
@@ -1100,5 +1118,6 @@ func main() {
 	// mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", []string{"hit"})
 	// intToRoman(5)
 	// minimumBoxes([]int{1, 2, 3}, []int{3, 4, 5})
-	numIdenticalPairs([]int{1, 1, 1, 1})
+	// numIdenticalPairs([]int{1, 1, 1, 1})
+	countKeyChanges("aAbBcC")
 }
