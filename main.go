@@ -1052,19 +1052,13 @@ func asteroidsDestroyed(mass int, asteroids []int) bool {
 
 func countKeyChanges(s string) int {
 	s = strings.ToLower(s)
-	var changes int
-	for currentIndex, _ := range s {
-		nextIndex := 0
-		if currentIndex < len(s)-1 {
-			nextIndex = currentIndex + 1
-		}
-		if currentIndex < len(s)-1 && s[currentIndex] != s[nextIndex] {
-			fmt.Println(s[currentIndex], s[nextIndex])
-			changes++
+	count := 0
+	for i := 1; i < len(s); i++ {
+		if s[i] != s[i-1] {
+			count++
 		}
 	}
-	fmt.Println(changes)
-	return changes
+	return count
 
 }
 
@@ -1119,5 +1113,5 @@ func main() {
 	// intToRoman(5)
 	// minimumBoxes([]int{1, 2, 3}, []int{3, 4, 5})
 	// numIdenticalPairs([]int{1, 1, 1, 1})
-	countKeyChanges("aAbBcC")
+	countKeyChanges("mDVD")
 }
