@@ -1059,7 +1059,22 @@ func countKeyChanges(s string) int {
 		}
 	}
 	return count
+}
 
+func heightChecker(heights []int) int {
+	changes := 0
+	sortedHeights := make([]int, len(heights))
+	copy(sortedHeights, heights)
+	sort.Ints(sortedHeights)
+
+	for i := 0; i < len(heights); i++ {
+		if heights[i] != sortedHeights[i] {
+			changes++
+		}
+	}
+	fmt.Println(changes)
+
+	return changes
 }
 
 func main() {
@@ -1113,5 +1128,6 @@ func main() {
 	// intToRoman(5)
 	// minimumBoxes([]int{1, 2, 3}, []int{3, 4, 5})
 	// numIdenticalPairs([]int{1, 1, 1, 1})
-	countKeyChanges("mDVD")
+	// countKeyChanges("mDVD")
+	heightChecker([]int{1, 1, 4, 2, 1, 3})
 }
