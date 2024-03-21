@@ -1077,6 +1077,19 @@ func heightChecker(heights []int) int {
 	return changes
 }
 
+func hasTrailingZeros(nums []int) bool {
+	count := 0
+    for _, val := range nums {
+        if val % 2 == 0 {
+            count++
+        }
+        if count == 2 {
+            return true
+        }
+    }
+    return false
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1129,5 +1142,6 @@ func main() {
 	// minimumBoxes([]int{1, 2, 3}, []int{3, 4, 5})
 	// numIdenticalPairs([]int{1, 1, 1, 1})
 	// countKeyChanges("mDVD")
-	heightChecker([]int{1, 1, 4, 2, 1, 3})
+	// heightChecker([]int{1, 1, 4, 2, 1, 3})
+	hasTrailingZeros([]int{1,2,3,4,5})
 }
