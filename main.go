@@ -1148,6 +1148,19 @@ func addArr(arr []int) []int {
 	return result
 }
 
+func getRowChat(rowIndex int) []int {
+	result := make([]int, rowIndex+1)
+	result[0], result[rowIndex] = 1, 1
+
+	for i := 1; i <= rowIndex/2; i++ {
+        value := result[i-1] * (rowIndex - i + 1) / i
+        result[i], result[rowIndex-i] = value, value
+    }
+	fmt.Println(result)
+
+	return result
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1204,5 +1217,6 @@ func main() {
 	// hasTrailingZeros([]int{1, 2, 3, 4, 5})
 	// wordPattern("abba", "dog cat cat dog")
 	// addArr([]int{1,3,3,1})
-	getRow(2)
+	// getRow(2)
+	getRowChat(5)
 }
