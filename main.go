@@ -1079,15 +1079,73 @@ func heightChecker(heights []int) int {
 
 func hasTrailingZeros(nums []int) bool {
 	count := 0
-    for _, val := range nums {
-        if val % 2 == 0 {
-            count++
-        }
-        if count == 2 {
-            return true
-        }
-    }
-    return false
+	for _, val := range nums {
+		if val%2 == 0 {
+			count++
+		}
+		if count == 2 {
+			return true
+		}
+	}
+	return false
+}
+
+func wordPattern(pattern string, s string) bool {
+	items := make(map[rune]string)
+	words := strings.Fields(s)
+
+	if len(pattern) != len(words) {
+		return false
+	}
+
+	wordToChar := make(map[string]rune)
+
+	for i, char := range pattern {
+		currentWord := words[i]
+
+		// Check if the current word has already been mapped to a character
+		if mappedChar, exists := wordToChar[currentWord]; exists {
+			// If it has been mapped, check if the mapping is consistent with the pattern
+			if mappedChar != char {
+				return false
+			}
+		} else {
+			// If the word hasn't been mapped, check if the character has already been mapped to another word
+			if storedWord, ok := items[char]; ok && storedWord != currentWord {
+				return false
+			}
+			// Update the mappings
+			items[char] = currentWord
+			wordToChar[currentWord] = char
+		}
+	}
+
+	return true
+}
+
+func getRow(rowIndex int) []int {
+	triangle := map[int][]int{
+		0: {1},
+		1: {1, 1},
+	}
+	for i := 2; i <= rowIndex; i++ {
+		triangle[i] = addArr(triangle[i-1]) 
+	}
+	return triangle[rowIndex]
+}
+
+func addArr(arr []int) []int {
+	result := make([]int, len(arr)+1)
+	for i := 0; i < len(arr); i++ {
+		
+		result[i] += arr[i]
+		if i+1 < len(arr) {
+			result[i+1] += arr[i]
+		}
+	}
+	result[len(arr)] += arr[len(arr)-1]
+
+	return result
 }
 
 func main() {
@@ -1143,5 +1201,8 @@ func main() {
 	// numIdenticalPairs([]int{1, 1, 1, 1})
 	// countKeyChanges("mDVD")
 	// heightChecker([]int{1, 1, 4, 2, 1, 3})
-	hasTrailingZeros([]int{1,2,3,4,5})
+	// hasTrailingZeros([]int{1, 2, 3, 4, 5})
+	// wordPattern("abba", "dog cat cat dog")
+	// addArr([]int{1,3,3,1})
+	getRow(2)
 }
