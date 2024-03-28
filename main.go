@@ -1129,7 +1129,7 @@ func getRow(rowIndex int) []int {
 		1: {1, 1},
 	}
 	for i := 2; i <= rowIndex; i++ {
-		triangle[i] = addArr(triangle[i-1]) 
+		triangle[i] = addArr(triangle[i-1])
 	}
 	return triangle[rowIndex]
 }
@@ -1137,7 +1137,7 @@ func getRow(rowIndex int) []int {
 func addArr(arr []int) []int {
 	result := make([]int, len(arr)+1)
 	for i := 0; i < len(arr); i++ {
-		
+
 		result[i] += arr[i]
 		if i+1 < len(arr) {
 			result[i+1] += arr[i]
@@ -1153,12 +1153,19 @@ func getRowChat(rowIndex int) []int {
 	result[0], result[rowIndex] = 1, 1
 
 	for i := 1; i <= rowIndex/2; i++ {
-        value := result[i-1] * (rowIndex - i + 1) / i
-        result[i], result[rowIndex-i] = value, value
-    }
-	fmt.Println(result)
+		value := result[i-1] * (rowIndex - i + 1) / i
+		result[i], result[rowIndex-i] = value, value
+	}
 
 	return result
+}
+
+func generate(numRows int) [][]int {
+	resp := make([][]int, numRows)
+	for i := range resp {
+		resp[i] = getRow(i)
+	}
+	return resp
 }
 
 func main() {
@@ -1218,5 +1225,6 @@ func main() {
 	// wordPattern("abba", "dog cat cat dog")
 	// addArr([]int{1,3,3,1})
 	// getRow(2)
-	getRowChat(5)
+	// getRowChat(5)
+	generate(5)
 }
