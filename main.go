@@ -1282,6 +1282,47 @@ func calculateBeauty(count []int, x, offset int) int {
 	return 0 // If beauty couldn't be determined within loop range, return 0.
 }
 
+func maxScore(cardPoints []int, k int) int {
+	var sum int
+	for i := len(cardPoints) - k; i < len(cardPoints); i++ {
+		sum += cardPoints[i]
+	}
+	max := sum
+	left, right := 0, len(cardPoints)-k
+	for right < len(cardPoints) {
+		sum += cardPoints[left]
+		left++
+		sum -= cardPoints[right]
+		right++
+		if sum > max {
+			max = sum
+		}
+	}
+	return max
+}
+
+func findMaxAverage(nums []int, k int) float64 {
+	if len(nums) < k {
+		return 0.0
+	}
+	sum := 0
+	for i := 0; i < k; i++ {
+		sum += nums[i]
+	}
+	maxAvg := float64(sum) / float64(k)
+
+	for end := k; end < len(nums); end++ {
+		sum = sum + nums[end] - nums[end-k]
+		currAvg := float64(sum) / float64(k)
+		if currAvg > maxAvg {
+			maxAvg = currAvg
+		}
+	}
+	fmt.Println(maxAvg)
+
+	return maxAvg
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1348,5 +1389,7 @@ func main() {
 	// }
 
 	// maximumSubarraySum([]int{1, 5, 4, 2, 9, 9, 9}, 3)
-	getSubarrayBeauty([]int{-3, 1, 2, -3, 0, -3}, 2, 1)
+	// getSubarrayBeauty([]int{-3, 1, 2, -3, 0, -3}, 2, 1)
+	// maxScore([]int{1, 2, 3, 4, 5, 6, 1}, 3)
+	findMaxAverage([]int{1, 12, -5, -6, 50, 3}, 4)
 }
