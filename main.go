@@ -1168,6 +1168,16 @@ func generate(numRows int) [][]int {
 	return resp
 }
 
+func findMin(nums []int) int {
+    num := nums[0]
+    for i := 1; i < len(nums); i++ {
+        if nums[i] < num {
+            num = nums[i]
+        }
+    }
+    return num;
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
