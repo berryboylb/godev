@@ -1169,13 +1169,117 @@ func generate(numRows int) [][]int {
 }
 
 func findMin(nums []int) int {
-    num := nums[0]
-    for i := 1; i < len(nums); i++ {
-        if nums[i] < num {
-            num = nums[i]
-        }
-    }
-    return num;
+	num := nums[0]
+	for i := 1; i < len(nums); i++ {
+		if nums[i] < num {
+			num = nums[i]
+		}
+	}
+	return num
+}
+
+func findMinBinary(nums []int) int {
+	left, right := 0, len(nums)-1
+	fmt.Println("left:", left)
+	fmt.Println("right: ", right)
+	for left < right {
+		fmt.Println("left: right: ", left, right)
+		mid := (left + right) / 2
+		fmt.Println("mid: ", mid)
+		fmt.Println("nums[mid]: ", nums[mid])
+		fmt.Println("nums[right]: ", nums[right])
+		if nums[mid] > nums[right] {
+			left = mid + 1
+			fmt.Println("updatedleft: ", left)
+		} else {
+			right = mid
+			fmt.Println("updatedright: ", right)
+		}
+	}
+	fmt.Println("ans: ", nums[left])
+	return nums[left]
+}
+
+func maxProfitSlid(prices []int) int {
+	windowStart := 0
+	maxProfit := 0
+
+	for windowEnd := 1; windowEnd < len(prices); windowEnd++ {
+		currentProfit := prices[windowEnd] - prices[windowStart]
+		if currentProfit > maxProfit {
+			maxProfit = currentProfit
+		}
+
+		if prices[windowEnd] < prices[windowStart] {
+			windowStart = windowEnd
+		}
+	}
+
+	return maxProfit
+}
+func maximumSubarraySum(nums []int, k int) int64 {
+	if k <= 0 || k > len(nums) {
+		return 0
+	}
+	frequency := make(map[int]int)
+	start, sum, max_sum := 0, 0, 0
+	//for loop till end reaches n
+	for end := 0; end < len(nums); end++ {
+		frequency[nums[end]]++
+		sum += nums[end]
+		if end-start+1 == k {
+			//distinct elements condition
+			if len(frequency) == k {
+				max_sum = int(math.Max(float64(max_sum), float64(sum)))
+			}
+			if frequency[nums[start]] == 1 {
+				delete(frequency, nums[start])
+			} else {
+				frequency[nums[start]]--
+			}
+			sum -= nums[start]
+			start++
+		}
+	}
+	return int64(max_sum)
+}
+
+func getSubarrayBeauty(nums []int, k int, x int) []int {
+	const offset = 50
+	length := len(nums)
+	count := make([]int, 101) // Frequency array with a size of 101
+	beautyValues := make([]int, length-k+1)
+
+	// Initialize the count array with the first ‘k’ elements in nums.
+	for i := 0; i < k; i++ {
+		count[nums[i]+offset]++
+	}
+
+	// Store the beauty of the first subarray.
+	beautyValues[0] = calculateBeauty(count, x, offset)
+
+	// Sliding window approach to calculate beauty for remaining subarrays of length k.
+	for end := k; end < length; end++ {
+		// Include the next element in the window and update its count.
+		count[nums[end]+offset]++
+		// Exclude the element that is now outside the window and update its count.
+		count[nums[end-k]+offset]--
+		// Calculate beauty for the new subarray and store it.
+		beautyValues[end-k+1] = calculateBeauty(count, x, offset)
+	}
+
+	return beautyValues
+}
+
+func calculateBeauty(count []int, x, offset int) int {
+	sum := 0
+	for i := 0; i < 50; i++ {
+		sum += count[i]
+		if sum >= x {
+			return i - offset // Offset by 50 to get the actual value.
+		}
+	}
+	return 0 // If beauty couldn't be determined within loop range, return 0.
 }
 
 func main() {
@@ -1236,5 +1340,13 @@ func main() {
 	// addArr([]int{1,3,3,1})
 	// getRow(2)
 	// getRowChat(5)
-	generate(5)
+	// generate(5)
+
+	// cases := [][]int{[]int{3, 4, 5, 1, 2}, []int{4, 5, 6, 7, 0, 1, 2}, []int{11, 13, 15, 17}}
+	// for _, c := range cases {
+	// 	fmt.Println(findMinBinary(c))
+	// }
+
+	// maximumSubarraySum([]int{1, 5, 4, 2, 9, 9, 9}, 3)
+	getSubarrayBeauty([]int{-3, 1, 2, -3, 0, -3}, 2, 1)
 }
