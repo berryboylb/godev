@@ -1323,6 +1323,32 @@ func findMaxAverage(nums []int, k int) float64 {
 	return maxAvg
 }
 
+func numOfSubarrays(arr []int, k int, threshold int) int {
+	if len(arr) < k {
+		return 0
+	}
+	count, sum := 0, 0
+
+	for i := 0; i < k; i++ {
+		sum += arr[i]
+	}
+	if sum/k >= threshold {
+		count++
+	}
+
+	for end := k; end < len(arr); end++ {
+		sum = sum + arr[end] - arr[end-k]
+		currAvg := sum / k
+		if currAvg >= threshold {
+			count++
+		}
+	}
+
+	fmt.Println(count)
+
+	return count
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1391,5 +1417,6 @@ func main() {
 	// maximumSubarraySum([]int{1, 5, 4, 2, 9, 9, 9}, 3)
 	// getSubarrayBeauty([]int{-3, 1, 2, -3, 0, -3}, 2, 1)
 	// maxScore([]int{1, 2, 3, 4, 5, 6, 1}, 3)
-	findMaxAverage([]int{1, 12, -5, -6, 50, 3}, 4)
+	// findMaxAverage([]int{1, 12, -5, -6, 50, 3}, 4)
+	numOfSubarrays([]int{11,13,17,23,29,31,7,5,2,3}, 3, 5)
 }
