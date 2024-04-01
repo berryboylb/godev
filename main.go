@@ -1349,6 +1349,16 @@ func numOfSubarrays(arr []int, k int, threshold int) int {
 	return count
 }
 
+func hasCodes(s string, k int) bool {
+	substrings := make(map[string]bool)
+    left := 0
+    for end := k; end <= len(s); end++ {
+        substrings[s[left:end]] = true
+        left++
+    }
+    return len(substrings) == 1<<k
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1418,5 +1428,6 @@ func main() {
 	// getSubarrayBeauty([]int{-3, 1, 2, -3, 0, -3}, 2, 1)
 	// maxScore([]int{1, 2, 3, 4, 5, 6, 1}, 3)
 	// findMaxAverage([]int{1, 12, -5, -6, 50, 3}, 4)
-	numOfSubarrays([]int{11,13,17,23,29,31,7,5,2,3}, 3, 5)
+	// numOfSubarrays([]int{11, 13, 17, 23, 29, 31, 7, 5, 2, 3}, 3, 5)
+	hasCodes("00110110", 2)
 }
