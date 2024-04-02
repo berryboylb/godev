@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"maps"
 	"math"
 	"regexp"
 	"sort"
@@ -1351,12 +1352,39 @@ func numOfSubarrays(arr []int, k int, threshold int) int {
 
 func hasCodes(s string, k int) bool {
 	substrings := make(map[string]bool)
-    left := 0
-    for end := k; end <= len(s); end++ {
-        substrings[s[left:end]] = true
-        left++
-    }
-    return len(substrings) == 1<<k
+	left := 0
+	for end := k; end <= len(s); end++ {
+		substrings[s[left:end]] = true
+		left++
+	}
+	return len(substrings) == 1<<k
+}
+
+func findAnagrams(s string, p string) []int {
+	res, left, chars := make([]int, 0), 0, make(map[rune]int)
+	for _, c := range p {
+		if _, ok := chars[c]; !ok {
+			chars[c] = 1
+		} else {
+			chars[c]++
+		}
+	}
+	reset := maps.Clone(chars)
+	for end := len(p); end <= len(s); end++ {
+		for _, c := range s[left:end] {
+			chars[c]--
+			if chars[c] == 0 {
+				delete(chars, c)
+			}
+		}
+		if len(chars) == 0 {
+			res = append(res, left)
+		}
+		chars = maps.Clone(reset)
+		left++
+	}
+	fmt.Println(res, chars)
+	return res
 }
 
 func main() {
@@ -1429,5 +1457,6 @@ func main() {
 	// maxScore([]int{1, 2, 3, 4, 5, 6, 1}, 3)
 	// findMaxAverage([]int{1, 12, -5, -6, 50, 3}, 4)
 	// numOfSubarrays([]int{11, 13, 17, 23, 29, 31, 7, 5, 2, 3}, 3, 5)
-	hasCodes("00110110", 2)
+	// hasCodes("00110110", 2)
+	findAnagrams("cbaebabacd", "abc")
 }
