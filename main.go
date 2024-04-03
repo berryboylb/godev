@@ -1387,6 +1387,26 @@ func findAnagrams(s string, p string) []int {
 	return res
 }
 
+func longestCommonSubsequence(text1 string, text2 string) int {
+	len1, len2 := len(text1), len(text2)
+	dp := make([][]int, len1+1)
+	for i := 0; i <= len1; i++ {
+		dp[i] = make([]int, len2+1)
+	}
+	for i := 1; i <= len1; i++ {
+		for j := 1; j <= len2; j++ {
+			if text1[i-1] == text2[j-1] {
+				dp[i][j] = dp[i-1][j-1] + 1
+			} else {
+				dp[i][j] = int(math.Max(float64(dp[i-1][j]), float64(dp[i][j-1])))
+			}
+		}
+	}
+	fmt.Println("ans:", dp[len1][len2], dp)
+
+	return dp[len1][len2]
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1458,5 +1478,6 @@ func main() {
 	// findMaxAverage([]int{1, 12, -5, -6, 50, 3}, 4)
 	// numOfSubarrays([]int{11, 13, 17, 23, 29, 31, 7, 5, 2, 3}, 3, 5)
 	// hasCodes("00110110", 2)
-	findAnagrams("cbaebabacd", "abc")
+	// findAnagrams("cbaebabacd", "abc")
+	longestCommonSubsequence("adcde", "ace")
 }
