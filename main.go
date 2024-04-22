@@ -1411,38 +1411,49 @@ func longestCommonSubsequence(text1 string, text2 string) int {
 }
 
 func lengthOfLIS(nums []int) int {
-    if len(nums) == 0 {
-        return 0
-    }
-    
-    // Initialize the LIS array with the first element of nums
-    lis := []int{nums[0]}
-    
-    for i := 1; i < len(nums); i++ {
-        num := nums[i]
-        // If num is greater than the last element of lis, append it to lis
-        if num > lis[len(lis)-1] {
-            lis = append(lis, num)
-        } else {
-            // Perform binary search to find the position to replace in lis
-            left, right := 0, len(lis)-1
-            for left < right {
-                mid := left + (right-left)/2
-                if lis[mid] < num {
-                    left = mid + 1
-                } else {
-                    right = mid
-                }
-            }
-            // Replace the element at position right with num
-            lis[right] = num
-        }
-    }
-    
-    return len(lis)
+	if len(nums) == 0 {
+		return 0
+	}
+
+	// Initialize the LIS array with the first element of nums
+	lis := []int{nums[0]}
+
+	for i := 1; i < len(nums); i++ {
+		num := nums[i]
+		// If num is greater than the last element of lis, append it to lis
+		if num > lis[len(lis)-1] {
+			lis = append(lis, num)
+		} else {
+			// Perform binary search to find the position to replace in lis
+			left, right := 0, len(lis)-1
+			for left < right {
+				mid := left + (right-left)/2
+				if lis[mid] < num {
+					left = mid + 1
+				} else {
+					right = mid
+				}
+			}
+			// Replace the element at position right with num
+			lis[right] = num
+		}
+	}
+
+	return len(lis)
 }
 
+func nSum(n int) int {
+	cache := map[int]int{
+		0:0,
+	}
+	for i:= 1; i<= n; i++ {
+		cache[i] = cache[i-1] + i
+	}
 
+	fmt.Println("ans", cache[n])
+
+	return cache[n]
+}
 
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
@@ -1517,5 +1528,6 @@ func main() {
 	// hasCodes("00110110", 2)
 	// findAnagrams("cbaebabacd", "abc")
 	// longestCommonSubsequence("adcde", "ace")
-	lengthOfLIS([]int{10, 9, 2, 5, 3, 7, 101, 18})
+	// lengthOfLIS([]int{10, 9, 2, 5, 3, 7, 101, 18})
+	nSum(0)
 }
