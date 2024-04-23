@@ -8,6 +8,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 type bill struct {
@@ -845,20 +846,6 @@ func constructRectangle(area int) []int {
 	return res
 }
 
-func convertToTitle(columnNumber int) string {
-	ans := ""
-	for columnNumber > 0 {
-		code := columnNumber % 26
-		if code == 0 {
-			code = 26
-		}
-		ans = string(code+64) + ans
-		columnNumber = (columnNumber - code) / 26
-	}
-	fmt.Print(ans)
-	return ans
-}
-
 func reverseWordsPrev(s string) string {
 	strArr := strings.Fields(s)
 	ans := ""
@@ -1444,15 +1431,82 @@ func lengthOfLIS(nums []int) int {
 
 func nSum(n int) int {
 	cache := map[int]int{
-		0:0,
+		0: 0,
 	}
-	for i:= 1; i<= n; i++ {
+	for i := 1; i <= n; i++ {
 		cache[i] = cache[i-1] + i
 	}
 
 	fmt.Println("ans", cache[n])
 
 	return cache[n]
+}
+
+func ways(n int) int {
+	cache := map[int]int{
+		0: 1,
+		1: 1,
+		2: 2,
+	}
+	for i := 3; i <= n; i++ {
+		cache[i] = cache[i-1] + cache[i-2]
+	}
+
+	fmt.Println("ans", cache[n])
+
+	return cache[n]
+}
+
+func numberOfEmployeesWhoMetTarget(hours []int, target int) int {
+	count := 0
+	for _, v := range hours {
+		if v >= target {
+			count += 1
+		}
+	}
+	fmt.Println("ans", count)
+	return count
+}
+
+func convertToTitle(columnNumber int) string {
+	ans := ""
+	for columnNumber > 0 {
+		code := columnNumber % 26
+		if code == 0 {
+			code = 26
+		}
+		ans = string(code+64) + ans
+		columnNumber = (columnNumber - code) / 26
+	}
+	fmt.Print(ans)
+	return ans
+}
+
+func numberOfSpecialChars(word string) int {
+	count := 0
+	char := map[rune]bool{}
+	checked := map[rune]bool{}
+	for _, val := range word {
+		if checked[unicode.ToLower(val)] {
+			continue
+		}
+		if unicode.IsLower(val) {
+			upper := unicode.ToUpper(val)
+			if char[upper] {
+				count++
+				checked[val] = true
+			}
+		}
+		if unicode.IsUpper(val) {
+			lower := unicode.ToLower(val)
+			if char[lower] {
+				count++
+				checked[unicode.ToLower(val)] = true
+			}
+		}
+		char[val] = true
+	}
+	return count
 }
 
 func main() {
@@ -1529,5 +1583,8 @@ func main() {
 	// findAnagrams("cbaebabacd", "abc")
 	// longestCommonSubsequence("adcde", "ace")
 	// lengthOfLIS([]int{10, 9, 2, 5, 3, 7, 101, 18})
-	nSum(0)
+	// nSum(0)
+	// ways(5)
+	// numberOfEmployeesWhoMetTarget([]int{0, 1, 2, 3, 4}, 2)
+	numberOfSpecialChars("aaAbcBC")
 }
