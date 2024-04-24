@@ -1509,6 +1509,33 @@ func numberOfSpecialChars(word string) int {
 	return count
 }
 
+func accountBalanceAfterPurchase(purchaseAmount int) int {
+	lastDigit := purchaseAmount % 10
+	if lastDigit != 0 {
+		if 1 <= lastDigit && lastDigit <= 4 {
+			purchaseAmount -= lastDigit
+		} else {
+			remainder := 10 - lastDigit
+			purchaseAmount += remainder
+		}
+	}
+	return 100 - purchaseAmount
+}
+
+func finalString(s string) string {
+	var runes []rune
+	for _, c := range s {
+		if c == 105 {
+			for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+				runes[i], runes[j] = runes[j], runes[i]
+			}
+		} else {
+			runes = append(runes, c)
+		}
+	}
+	return string(runes)
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1586,5 +1613,7 @@ func main() {
 	// nSum(0)
 	// ways(5)
 	// numberOfEmployeesWhoMetTarget([]int{0, 1, 2, 3, 4}, 2)
-	numberOfSpecialChars("aaAbcBC")
+	// numberOfSpecialChars("aaAbcBC")
+	// accountBalanceAfterPurchase(22)
+	finalString("poiinter")
 }
