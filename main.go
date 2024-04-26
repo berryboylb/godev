@@ -1536,6 +1536,54 @@ func finalString(s string) string {
 	return string(runes)
 }
 
+func isAcronym(words []string, s string) bool {
+	var bytes []byte
+	for _, c := range words {
+		bytes = append(bytes, c[0])
+	}
+	return string(bytes) == s //7ms
+}
+
+func isAcronym2(words []string, s string) bool {
+	bytes := make([]byte, len(words))
+	for index, c := range words {
+		bytes[index] = c[0]
+	}
+	return string(bytes) == s //10ms
+}
+
+func isAcronym3(words []string, s string) bool {
+	result := ""
+	for _, c := range words {
+		result += string(c[0])
+	}
+	return result == s //7ms
+}
+
+func isAcronym4(words []string, s string) bool {
+	var builder strings.Builder
+	for _, c := range words {
+		builder.WriteByte(c[0])
+	}
+	return builder.String() == s //3ms
+}
+
+func isAcronym5(words []string, s string) bool {
+	bytes := []byte(s)
+	n := len(bytes)
+	if n != len(words) {
+		return false
+	}
+	for index, c := range words {
+		if index >= n {
+			return false
+		} else if bytes[index] != c[0] {
+			return false
+		}
+	}
+	return true //0ms
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1615,5 +1663,6 @@ func main() {
 	// numberOfEmployeesWhoMetTarget([]int{0, 1, 2, 3, 4}, 2)
 	// numberOfSpecialChars("aaAbcBC")
 	// accountBalanceAfterPurchase(22)
-	finalString("poiinter")
+	// finalString("poiinter")
+	isAcronym5([]string{"alice", "bob", "charlie"}, "abc")
 }
