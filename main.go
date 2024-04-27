@@ -1584,6 +1584,22 @@ func isAcronym5(words []string, s string) bool {
 	return true //0ms
 }
 
+func furthestDistanceFromOrigin(moves string) int {
+	spaces := 0
+	diff := 0
+	for _, move := range moves {
+		if move == 95 {
+			spaces++
+		} else if move == 76 {
+			diff += -1
+		} else {
+			diff += 1
+		}
+		fmt.Println("moves", move, string(move))
+	}
+	return int(math.Abs(float64(diff))) + spaces
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1664,5 +1680,6 @@ func main() {
 	// numberOfSpecialChars("aaAbcBC")
 	// accountBalanceAfterPurchase(22)
 	// finalString("poiinter")
-	isAcronym5([]string{"alice", "bob", "charlie"}, "abc")
+	// isAcronym5([]string{"alice", "bob", "charlie"}, "abc")
+	furthestDistanceFromOrigin("L_RL__R")
 }
