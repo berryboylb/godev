@@ -1597,7 +1597,31 @@ func furthestDistanceFromOrigin(moves string) int {
 		}
 		fmt.Println("moves", move, string(move))
 	}
+
 	return int(math.Abs(float64(diff))) + spaces
+}
+
+func canBeEqual(s1 string, s2 string) bool {
+	n := len(s1)
+	for indexI := 0; indexI < n-2; indexI++ {
+		if s1[indexI] == s2[indexI] {
+			continue // If the chars are equal check for next;
+		}
+		if s1[indexI] != s2[indexI+2] {
+			return false
+		}
+	}
+
+	for indexI := n - 1; indexI > n-3; indexI-- {
+		if s1[indexI] == s2[indexI] {
+			continue // If the chars are equal check for next;
+		}
+		if s1[indexI] != s2[indexI-2] {
+			return false
+		}
+	}
+
+	return true
 }
 
 func main() {
