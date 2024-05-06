@@ -1624,6 +1624,33 @@ func canBeEqual(s1 string, s2 string) bool {
 	return true
 }
 
+func numberOfPoints(nums [][]int) int {
+	points := map[int]bool{}
+	for _, pointRange := range nums {
+		for point := pointRange[0]; point <= pointRange[1]; point++ {
+			points[point] = true
+		}
+	}
+	fmt.Println("ans: ", len(points))
+	return len(points)
+}
+
+func sumIndicesWithKSetBits(nums []int, k int) int {
+	res := 0
+
+	for i, num := range nums {
+		bit := fmt.Sprintf("%04b", i)
+		count := strings.Count(bit, "1")
+		if count == k {
+			res += num
+		}
+		
+	}
+	fmt.Println(res)
+
+	return res
+}
+
 func main() {
 	// twoSum([]int{2,7,11,15}, 9)
 	// removeDuplicates([]int{0,0,1,1,1,2,2,3,3,4})
@@ -1705,5 +1732,7 @@ func main() {
 	// accountBalanceAfterPurchase(22)
 	// finalString("poiinter")
 	// isAcronym5([]string{"alice", "bob", "charlie"}, "abc")
-	furthestDistanceFromOrigin("L_RL__R")
+	// furthestDistanceFromOrigin("L_RL__R")
+	// numberOfPoints([][]int{{3, 6}, {1, 5}, {4, 7}})
+	sumIndicesWithKSetBits([]int{5,10,1,5,2}, 1)
 }
