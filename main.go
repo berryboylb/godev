@@ -1644,10 +1644,26 @@ func sumIndicesWithKSetBits(nums []int, k int) int {
 		if count == k {
 			res += num
 		}
-		
+
 	}
 	fmt.Println(res)
 
+	return res
+}
+
+func minOperations(nums []int, k int) int {
+	res := 0
+	items := map[int]bool{}
+	for i := 1; i <= k; i++ {
+		items[i] = true
+	}
+	for i := len(nums) - 1; i >= 0; i-- {
+		if len(items) == 0 {
+			return res + 1
+		}
+		delete(items, nums[i])
+		res++
+	}
 	return res
 }
 
@@ -1734,5 +1750,6 @@ func main() {
 	// isAcronym5([]string{"alice", "bob", "charlie"}, "abc")
 	// furthestDistanceFromOrigin("L_RL__R")
 	// numberOfPoints([][]int{{3, 6}, {1, 5}, {4, 7}})
-	sumIndicesWithKSetBits([]int{5,10,1,5,2}, 1)
+	// sumIndicesWithKSetBits([]int{5, 10, 1, 5, 2}, 1)
+	minOperations([]int{3,1,5,4,2}, 2)
 }
