@@ -1659,10 +1659,20 @@ func minOperations(nums []int, k int) int {
 	}
 	for i := len(nums) - 1; i >= 0; i-- {
 		if len(items) == 0 {
-			return res + 1
+			return res
 		}
 		delete(items, nums[i])
 		res++
+	}
+	return res
+}
+
+func findWordsContaining(words []string, x byte) []int {
+	res := make([]int, 0)
+	for i, val := range words {
+		if  strings.Contains(val, string(x)) {
+			res = append(res, i)
+		}
 	}
 	return res
 }
@@ -1751,5 +1761,6 @@ func main() {
 	// furthestDistanceFromOrigin("L_RL__R")
 	// numberOfPoints([][]int{{3, 6}, {1, 5}, {4, 7}})
 	// sumIndicesWithKSetBits([]int{5, 10, 1, 5, 2}, 1)
-	minOperations([]int{3,1,5,4,2}, 2)
+	// minOperations([]int{3, 1, 5, 4, 2}, 2)
+	findWordsContaining([]string{"leet", "code"}, 'e')
 }
